@@ -2,7 +2,7 @@
 namespace BFOS\SettingsManagementBundle\Form;
 
 
-use Symfony\Component\Form\Event\DataEvent;
+use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\FormEvents;
@@ -27,7 +27,7 @@ class SettingFormSubscriber implements EventSubscriberInterface
         return array(FormEvents::PRE_SET_DATA => 'preSetData');
     }
 
-    public function preSetData(DataEvent $event)
+    public function preSetData(FormEvent $event)
     {
         $data = $event->getData();
         $form = $event->getForm();
@@ -43,32 +43,31 @@ class SettingFormSubscriber implements EventSubscriberInterface
 
             // check if the product object is not "new"
         if($data->getType() == 'email_template'){
-            $form->add($this->factory->createNamed('html_template', 'textarea'));
-            $form->add($this->factory->createNamed('text_template', 'textarea'));
+            $form->add($this->factory->createNamed('html_template', 'textarea', null, array('auto_initialize' => false)));
+            $form->add($this->factory->createNamed('text_template', 'textarea', null, array('auto_initialize' => false)));
         } else if($data->getType() == 'email_notification'){
-            $form->add($this->factory->createNamed('from_name', 'text'));
-            $form->add($this->factory->createNamed('from_email', 'text'));
-            $form->add($this->factory->createNamed('to_name', 'text'));
-            $form->add($this->factory->createNamed('to_email', 'text'));
-            $form->add($this->factory->createNamed('subject', 'text'));
-            $form->add($this->factory->createNamed('html_template', 'textarea'));
-            $form->add($this->factory->createNamed('text_template', 'textarea'));
+            $form->add($this->factory->createNamed('from_name', 'text', null, array('auto_initialize' => false)));
+            $form->add($this->factory->createNamed('from_email', 'text', null, array('auto_initialize' => false)));
+            $form->add($this->factory->createNamed('to_name', 'text', null, array('auto_initialize' => false)));
+            $form->add($this->factory->createNamed('to_email', 'text', null, array('auto_initialize' => false)));
+            $form->add($this->factory->createNamed('subject', 'text', null, array('auto_initialize' => false)));
+            $form->add($this->factory->createNamed('html_template', 'textarea', null, array('auto_initialize' => false)));
+            $form->add($this->factory->createNamed('text_template', 'textarea', null, array('auto_initialize' => false)));
         } else if($data->getType() == 'boolean'){
-            $form->add($this->factory->createNamed('value', 'checkbox'));
+            $form->add($this->factory->createNamed('value', 'checkbox', null, array('auto_initialize' => false)));
         } else if($data->getType() == 'email_address'){
-            $form->add($this->factory->createNamed('emailName', 'text'));
-            $form->add($this->factory->createNamed('emailAddress', 'text'));
+            $form->add($this->factory->createNamed('emailName', 'text', null, array('auto_initialize' => false)));
+            $form->add($this->factory->createNamed('emailAddress', 'text', null, array('auto_initialize' => false)));
         } else if($data->getType() == 'html'){
-            $form->add($this->factory->createNamed('value', 'textarea'));
+            $form->add($this->factory->createNamed('value', 'textarea', null, array('auto_initialize' => false)));
         } else if($data->getType() == 'integer'){
-            $form->add($this->factory->createNamed('value', 'integer'));
+            $form->add($this->factory->createNamed('value', 'integer', null, array('auto_initialize' => false)));
         } else if($data->getType() == 'number'){
-            $form->add($this->factory->createNamed('value', 'number'));
+            $form->add($this->factory->createNamed('value', 'number', null, array('auto_initialize' => false)));
         } else if($data->getType() == 'html'){
-            $form->add($this->factory->createNamed('value', 'textarea'));
+            $form->add($this->factory->createNamed('value', 'textarea', null, array('auto_initialize' => false)));
         } else {
-            $form->add($this->factory->createNamed('value', 'text', null,  array('required'=>false)));
-
+            $form->add($this->factory->createNamed('value', 'text', null,  array('required'=>false, 'auto_initialize' => false)));
         }
     }
 }

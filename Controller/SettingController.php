@@ -22,7 +22,8 @@ class SettingController extends Controller
     /**
      * Lists all Setting entities.
      *
-     * @Route("/", name="bfos_settings", requirements={"_method": "get"})
+     * @Route("/", name="bfos_settings")
+     * @Method("get")
      * @Template()
      */
     public function indexAction()
@@ -30,7 +31,7 @@ class SettingController extends Controller
         /**
          * @var \Doctrine\ORM\EntityManager $em
          */
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
 
         $entity_name = 'BFOSSettingsManagementBundle:Setting';
 
@@ -61,7 +62,8 @@ class SettingController extends Controller
     /**
      * Finds and displays a Setting entity.
      *
-     * @Route("/{id}/show", name="bfos_settings_show", requirements={"_method": "get"})
+     * @Route("/{id}/show", name="bfos_settings_show")
+     * @Method("get")     
      * @Template()
      */
     public function showAction($id)
@@ -72,7 +74,7 @@ class SettingController extends Controller
             throw $this->createNotFoundException($this->get('translator')->trans('Invalid Request'));
         }
 
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
 
         /**
          * @var Setting $entity
@@ -97,12 +99,13 @@ class SettingController extends Controller
     /**
      * Displays a form to edit an existing Setting entity.
      *
-     * @Route("/{id}/edit", name="bfos_settings_edit", requirements={"_method": "get"})
+     * @Route("/{id}/edit", name="bfos_settings_edit")
+     * @Method("get")     
      * @Template()
      */
     public function editAction($id)
     {
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('BFOSSettingsManagementBundle:Setting')->find($id);
 
@@ -138,7 +141,7 @@ class SettingController extends Controller
         if(!$request->isXmlHttpRequest()){
             throw $this->createNotFoundException('Invalid request');
         }
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('BFOSSettingsManagementBundle:Setting')->find($id);
         $entities = $em->getRepository('BFOSSettingsManagementBundle:Setting')->findAll();
@@ -171,7 +174,7 @@ class SettingController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            $this->get('session')->setFlash('notice', $this->get('translator')->trans('Record was updated successfully'));
+            $this->get('session')->getFlashBag()->set('notice', $this->get('translator')->trans('Record was updated successfully'));
 
             return $this->render('BFOSSettingsManagementBundle:Setting:index_table.html.twig', $view_vars);
         }

@@ -48,7 +48,7 @@ class SettingForm
     /**
      * @var string $emailName
      *
-     *  @Assert\MinLength(limit=2, groups={"email_address"})
+     *  @Assert\Length(min=2, groups={"email_address"})
      */
     private $emailName;
 

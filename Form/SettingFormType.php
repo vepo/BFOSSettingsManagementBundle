@@ -19,7 +19,6 @@ class SettingFormType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-
         $subscriber = new SettingFormSubscriber($builder->getFormFactory(), $this->container);
         $builder->addEventSubscriber($subscriber);
 

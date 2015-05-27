@@ -3,6 +3,7 @@
 namespace BFOS\SettingsManagementBundle\Twig;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpKernel\Controller\ControllerReference;
 
 class TwigExtension extends \Twig_Extension
 {
@@ -41,7 +42,7 @@ class TwigExtension extends \Twig_Extension
 
     public function settingManagement()
     {
-        return $this->container->get('templating.helper.actions')->render('BFOSSettingsManagementBundle:Setting:index');
+        return $this->container->get('templating.helper.actions')->render(new ControllerReference('BFOSSettingsManagementBundle:Setting:index'));
 
         /*switch ($view) {
             case 'edit':

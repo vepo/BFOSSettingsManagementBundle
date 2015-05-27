@@ -1,11 +1,11 @@
-{% if app.session.hasFlash('notice') %}
+{% if app.session.flashbag.has('notice') %}
 <div class="alert-success">
-    {{ app.session.flash('notice')|trans }}
+    {{ app.session.flashbag.get('notice')|join('\n')|trans }}
 </div>
 {% endif %}
 
-{% if app.session.hasFlash('error') %}
+{% if app.session.flashbag.has('error') %}
 <div class="flash-error">
-    {{ app.session.flash('error')|trans }}
+    {{ app.session.flashbag.get('error')|join('\n')|trans }}
 </div>
 {% endif %}
